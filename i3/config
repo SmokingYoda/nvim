@@ -1,0 +1,39 @@
+# i3 config file (v4)
+
+default_border pixel
+focus_follows_mouse no
+workspace_auto_back_and_forth no
+default_orientation vertical
+
+gaps inner 2
+gaps outer 2
+
+bindsym mod1+z exec rofi -show drun
+bindsym mod1+f exec firefox
+bindsym mod1+x exec kitty
+bindsym mod1+shift+q kill
+bindsym mod1+shift+r restart
+bindsym mod1+shift+Delete exit
+bindsym mod1+shift+f fullscreen
+bindsym control+Left move left
+bindsym control+Right move right
+bindsym control+Up move up
+bindsym control+Down move down
+bindsym mod1+q workspace 1
+bindsym mod1+e workspace 2
+bindsym control+mod1+q move container to workspace 1
+bindsym control+mod1+e move container to workspace 2
+bindsym mod1+Left resize shrink width 10 px or 10 ppt
+bindsym mod1+Up resize grow height 10 px or 10 ppt
+bindsym mod1+Down resize shrink height 10 px or 10 ppt
+bindsym mod1+Right resize grow width 10 px or 10 ppt
+bindsym shift+Left focus left
+bindsym shift+Right focus right
+bindsym shift+Up focus up
+bindsym shift+Down focus down
+bindsym Print exec screengrab
+exec dunst
+
+bar {
+    status_command i3status
+}
