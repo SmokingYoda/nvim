@@ -32,6 +32,7 @@ bindsym shift+Right focus right
 bindsym shift+Up focus up
 bindsym shift+Down focus down
 bindsym Print exec screengrab
+
 exec dunst
 
 bar {
