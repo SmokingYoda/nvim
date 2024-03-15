@@ -1,39 +1,86 @@
 # i3 config file (v4)
 
-default_border pixel
+font pango:JetBrainsMono Nerd Font 8
+
+default_border none
+default_floating_border none
 focus_follows_mouse no
 workspace_auto_back_and_forth no
-default_orientation vertical
+default_orientation auto
+floating_modifier shift+control
+focus_wrapping no
+title_align center
 
-gaps inner 2
-gaps outer 2
+smart_borders no_gaps
+hide_edge_borders smart_no_gaps
+smart_gaps on
+gaps horizontal 7 px
+gaps vertical 15 px
+gaps inner 10 px
+
+# Launch bindings
 
 bindsym mod1+z exec rofi -show drun
 bindsym mod1+f exec firefox
 bindsym mod1+x exec kitty
+bindsym mod1+m exec spotify-launcher
+bindsym mod1+d exec discord
+bindsym mod1+s exec stream
+
+# i3 specific bindings
+
 bindsym mod1+shift+q kill
 bindsym mod1+shift+r restart
 bindsym mod1+shift+Delete exit
+
+# Window bindings.
+
 bindsym mod1+shift+f fullscreen
-bindsym control+Left move left
-bindsym control+Right move right
-bindsym control+Up move up
-bindsym control+Down move down
+bindsym control+mod1+s scratchpad show floating disable
+bindsym control+mod1+h move scratchpad
+
+# Screenshot bindings
+
+bindsym Print exec screengrab -f
+bindsym control+Print exec screengrab -a
+
+# Workspace bindings
+
 bindsym mod1+q workspace 1
 bindsym mod1+e workspace 2
+bindsym mod1+r workspace 3
+
 bindsym control+mod1+q move container to workspace 1
 bindsym control+mod1+e move container to workspace 2
-bindsym mod1+Left resize shrink width 10 px or 10 ppt
-bindsym mod1+Up resize grow height 10 px or 10 ppt
-bindsym mod1+Down resize shrink height 10 px or 10 ppt
-bindsym mod1+Right resize grow width 10 px or 10 ppt
+bindsym control+mod1+r move container to workspace 3
+
+# i3-resize script swaps the growth and shrink based on the position of the window.
+# Thanks to https://github.com/cakenes
+
+bindsym mod1+Right exec --no-startup-id ~/.config/i3/i3-resize.sh right left
+bindsym mod1+Left exec --no-startup-id ~/.config/i3/i3-resize.sh left right
+bindsym mod1+Up exec --no-startup-id ~/.config/i3/i3-resize.sh up down
+bindsym mod1+Down exec --no-startup-id ~/.config/i3/i3-resize.sh down up
+
+# Containner bindings
+
 bindsym shift+Left focus left
 bindsym shift+Right focus right
 bindsym shift+Up focus up
 bindsym shift+Down focus down
-bindsym Print exec screengrab
 
-exec dunst
+bindsym control+Left move left
+bindsym control+Right move right
+bindsym control+Up move up
+bindsym control+Down move down
+
+bindsym --whole-window mod1+button2 split horizontal 
+# Start-up
+
+exec --no-startup-id picom --config ~/.config/picom/picom.conf -b
+exec --no-startup-id dunst
+exec --no-startup-id feh --bg-scale ~/Downloads/drawing-digital-art-men-skull-hood-horror-1279909-wallhere.com.jpg
+exec --no-startup-id ~/.config/i3/active_border.sh
 
 bar {
     status_command i3status

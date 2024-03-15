@@ -2,6 +2,8 @@ local install = vim.fn["plug#"]
 
 vim.call("plug#begin")
 
+install("aspeddro/gitui.nvim") -- Currently the main git plugin.
+install("kdheepak/lazygit.nvim") -- The alternative to gitui.
 install("3rd/image.nvim")
 install("BurntSushi/ripgrep")
 install("L3MON4D3/LuaSnip")
@@ -49,6 +51,11 @@ install("stevearc/dressing.nvim")
 install("williamboman/mason-lspconfig.nvim")
 install("williamboman/mason.nvim")
 install("windwp/nvim-autopairs")
+install("indrets/diffview.nvim")
+install("akinsho/toggleterm.nvim")
+install("sindrets/diffview.nvim")
+install("paopaol/telescope-git-diffs.nvim")
+install("davvid/telescope-git-grep.nvim")
 
 vim.call("plug#end")
 

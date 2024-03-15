@@ -11,11 +11,18 @@ require("project_nvim").setup()
 require("neo-tree").setup()
 local telescope = require("telescope")
 telescope.setup({
+    defaults = { file_ignore_patterns = { ".git/", ".node_modules/" }},
     ["ui-select"] = { require("telescope.themes").get_dropdown() }
 })
 
 telescope.load_extension("ui-select")
 telescope.load_extension("projects")
+telescope.load_extension("git_diffs")
+telescope.load_extension("git_grep")
+telescope.load_extension("lazygit")
+
+require("gitui").setup()
+
 require("nvim-treesitter.configs").setup({
     ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "bash", "rust", "markdown" },
     highlight = { enable = true, },
@@ -37,6 +44,8 @@ cmp.setup({
         ["<cr>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
         ["<up>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ["<down>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+        ["<tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        ["<s-tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         ["<c-space>"] = cmp.mapping.close(),
         ["<c-c>"] = cmp.mapping.abort(),
         ["<c-j>"] = cmp.mapping.scroll_docs(4),
