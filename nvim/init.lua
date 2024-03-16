@@ -2,6 +2,9 @@ local install = vim.fn["plug#"]
 
 vim.call("plug#begin")
 
+install("MunifTanjim/prettier.nvim")
+install("nvimtools/none-ls.nvim")
+install("sbdchd/neoformat")
 install("aspeddro/gitui.nvim") -- Currently the main git plugin.
 install("kdheepak/lazygit.nvim") -- The alternative to gitui.
 install("3rd/image.nvim")

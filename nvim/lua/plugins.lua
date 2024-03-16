@@ -11,7 +11,7 @@ require("project_nvim").setup()
 require("neo-tree").setup()
 local telescope = require("telescope")
 telescope.setup({
-    defaults = { file_ignore_patterns = { ".git/", ".node_modules/" }},
+    defaults = { file_ignore_patterns = { ".git/", ".node_modules/" } },
     ["ui-select"] = { require("telescope.themes").get_dropdown() }
 })
 
@@ -32,18 +32,13 @@ require("nvim-treesitter.configs").setup({
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
-require("mason").setup()
-require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "bashls", "rust_analyzer" }
-})
-
 local cmp = require("cmp")
 
 cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ["<cr>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
-        ["<up>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-        ["<down>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+        ["<down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        ["<up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         ["<tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ["<s-tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         ["<c-space>"] = cmp.mapping.close(),
@@ -59,7 +54,7 @@ cmp.setup({
     sources = cmp.config.sources({ { name = "nvim_lsp" }, { name = "luasnip" } }, { { name = "buffer" } }),
     window = {
         completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered()
+                    documentation = cmp.config.window.bordered()
     }
 })
 
@@ -81,30 +76,63 @@ require("neodev").setup({
     library = { plugins = { "nvim-dap-ui" }, types = true }
 })
 
+require("mason").setup()
+
+local mlsp = require("mason-lspconfig")
 local cap = require("cmp_nvim_lsp").default_capabilities()
-local lsp = require("lspconfig")
 local nav = require("nvim-navbuddy")
+local lspconfig = require("lspconfig")
+
 nav.setup()
-lsp.lua_ls.setup({
-    on_attach = function(client, bufnr)
-        nav.attach(client, bufnr)
-    end,
-    capabilities = cap
+
+mlsp.setup({
+    ensure_installed = { "lua_ls", "bashls", "rust_analyzer", "biome" },
 })
 
-lsp.bashls.setup({
-    on_attach = function(client, bufnr)
-        nav.attach(client, bufnr)
-    end,
-    capabilities = cap
+mlsp.setup_handlers({
+    function(lsp)
+        lspconfig[lsp].setup({
+            on_attach = function(client, bufnr)
+                nav.attach(client, bufnr)
+            end,
+            capabilities = cap
+        })
+    end
 })
 
-lsp.rust_analyzer.setup({
-    on_attach = function(client, bufnr)
-        nav.attach(client, bufnr)
-    end,
-    capabilities = cap
+local null_ls = require("null-ls")
+local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+local event = "BufWritePre"
+local async = event == "BufWritePost"
+
+null_ls.setup({
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.keymap.set("n", " f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+
+      -- format on save
+      vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+      vim.api.nvim_create_autocmd(event, {
+        buffer = bufnr,
+        group = group,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr, async = async })
+        end,
+        desc = "[lsp] format on save",
+      })
+    end
+
+    if client.supports_method("textDocument/rangeFormatting") then
+      vim.keymap.set("x", " f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+    end
+  end,
 })
+
+require("prettier").setup()
 require("lsp_signature").setup()
 require("Comment").setup()
 require("nvim-autopairs").setup()

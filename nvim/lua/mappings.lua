@@ -1,16 +1,26 @@
 local wk = require("which-key")
 
+local leader = " "
+
 local nmap = function(mapping)
-    wk.register(mapping)
+    wk.register(mapping, { mode = "n", prefix = leader })
 end
 
 local vmap = function(mapping)
-    wk.register(mapping, { mode = "v" })
+    wk.register(mapping, { mode = "v", prefix = leader })
 end
 
-nmap({ ["<f3>"] = { ":Telescope find_files<cr>", "Show files." } })
-nmap({ ["<f10>"] = { ":Telescope projects<cr>", "Show projects." } })
-nmap({ ["<f4>"] = { ":Telescope live_grep<cr>", "Search in files." } })
-nmap({ ["<c- >"] = { ":lua vim.lsp.buf.hover()<cr>", "Show hover." } })
-nmap({ [" f"] = { ":lua vim.lsp.buf.format({ async = true })<cr>", "Format file." } })
-nmap({ ["<c-s>"] = { ":Navbuddy<cr>", "Show file structure." } })
+local imap = function(mapping)
+    wk.register(mapping, { mode = "i", prefix = leader })
+end
+
+wk.register({
+{["<f10>"] = { ":Telescope projects<cr>", "Open projects." }},
+    {["<f3>"] = { ":Telescope find_files<cr>", "Show files." }},
+})
+
+nmap({
+    {["<s-s>"] = { ":w<cr>", "Save." }},
+    {["<s-s>q"] = { ":wq<cr>", "Save and quit." }},
+    {["<s-q>q"] = { ":q!<cr>", "Discard and quit." }},
+})
