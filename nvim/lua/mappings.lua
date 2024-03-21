@@ -1,19 +1,13 @@
-local nmap = function(key, cmd, desc)
-	require("which-key").register({ [key] = { cmd, desc }}, { mode = "n" })
-end
+local wk = require("which-key")
 
-local imap = function(key, cmd, desc)
-	require("which-key").register({ [key] = { cmd, desc }}, { mode = "i" })
-end
-
-local vmap = function(key, cmd, desc)
-	require("which-key").register({ [key] = { cmd, desc }}, { mode = "v" })
-end
-
-nmap(" f", ":lua vim.lsp.buf.format({ async = true})<cr>", "Format current file")
-nmap("<f3>", ":Telescope find_files<cr>", "Show files")
-nmap("<f4>", ":Neogit<cr>", "Show Neogit.")
-
-nmap("<c- >", ":Lspsaga hover_doc<cr>", "Show hover docs.")
-imap("<c- >", ":Lspsaga hover_doc<cr>", "Show hover docs.")
-vmap("<c-a>", ":sort<cr>", "Sorts current selection.")
+wk.register({
+	["<f3>"] = { ":Telescope find_files<cr>", "Show files." },
+	["<f4>"] = { ":Neogit<cr>", "Show Neogit." },
+	["<c-s>g"] = { ":Telescope git_bcommits<cr>", "Show file's commits." },
+	["<c-s>f"] = { ":Neotree toggle<cr>", "Show Neogit." },
+	[" f"] = { ":lua vim.lsp.buf.format({ async = true })<cr>", "Format current file." },
+	["<c- >"] = { ":Lspsaga hover_doc<cr>", "Show hover" },
+	["gd"] = { ":Lspsaga goto_definition<cr>", "Goto definition." },
+	["<c-s>t"] = { ":TroubleToggle<cr>", "Toggle trouble." },
+	["<f5>"] = { ":split | terminal cargo run<cr>", "Run cargo." },
+})

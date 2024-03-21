@@ -1,35 +1,15 @@
 vim.g.coq_settings = {
 	["auto_start"] = "shut-up",
 	["xdg"] = true,
-	["keymap.recommended"] = false,
+	["keymap.recommended"] = true,
 	["display.preview.enabled"] = false,
+	["keymap.manual_complete"] = "",
+	["keymap.manual_complete_insertion_only"] = true,
 }
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = {
-		"bashls",
-		"biome",
-		"clangd",
-		"cssls",
-		"gopls",
-		"html",
-		"hydra_lsp",
-		"intelephense",
-		"lemminx",
-		"lua_ls",
-		"marksman",
-		"omnisharp",
-		"omnisharp_mono",
-		"powershell_es",
-		"pyre",
-		"rust_analyzer",
-		"sqlls",
-		"tailwindcss",
-		"tsserver",
-		"vimls",
-		"zls",
-	},
+	ensure_installed = require("mason_installations"),
 	automatic_installation = true,
 	handlers = {
 		function(server)

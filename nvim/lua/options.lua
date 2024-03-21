@@ -5,16 +5,16 @@ local settings = {
 	cursorline = true,
 	cursorlineopt = "number",
 	expandtab = true,
-	shiftwidth = 2,
+	shiftwidth = 4,
 	smartindent = true,
-	tabstop = 2,
-	softtabstop = 2,
+	tabstop = 4,
+	softtabstop = 4,
 	fillchars = { eob = " " },
 	ignorecase = true,
 	smartcase = true,
 	mouse = "a",
 	number = true,
-	numberwidth = 2,
+	numberwidth = 4,
 	ruler = false,
 	signcolumn = "yes",
 	splitbelow = true,
@@ -31,4 +31,4 @@ end
 
 vim.opt.shortmess:append("sI")
 vim.opt.whichwrap:append("<>[]hl")
-vim.cmd('colorscheme github_dark_dimmed')
+vim.cmd("colorscheme github_dark_dimmed")

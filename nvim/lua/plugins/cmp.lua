@@ -1,3 +1,5 @@
+-- CMP is used for command line only.
+
 local cmp = require("cmp")
 
 cmp.setup.cmdline(':', {
