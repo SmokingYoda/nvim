@@ -1,12 +1,4 @@
-vim.g.coq_settings = {
-	["auto_start"] = "shut-up",
-	["xdg"] = true,
-	["keymap.recommended"] = true,
-	["display.preview.enabled"] = false,
-	["keymap.manual_complete"] = "",
-	["keymap.manual_complete_insertion_only"] = true,
-}
-
+require("luasnip.loaders.from_vscode").lazy_load()
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = require("mason_installations"),
@@ -14,14 +6,14 @@ require("mason-lspconfig").setup({
 	handlers = {
 		function(server)
 			local setup = require("lspconfig")[server]
-			local coq_capabilities = require("coq").lsp_ensure_capabilities()
+			local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 			local navic = require("nvim-navic")
 
 			setup.setup({
 				on_attach = function(client, bufnr)
 					navic.attach(client, bufnr)
 				end,
-				capabilities = coq_capabilities,
+				capabilities = cmp_capabilities,
 				settings = {
 					Lua = { completion = { callSnippet = "Replace" } }
 				},
@@ -29,9 +21,3 @@ require("mason-lspconfig").setup({
 		end
 	}
 })
-
-require("coq_3p") {
-	{ src = "bc",      short_name = "MATH", precision = 6 },
-	{ src = "nvimlua", short_name = "nLUA", conf_only = true },
-	{ src = "dap" },
-}
