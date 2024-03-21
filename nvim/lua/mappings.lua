@@ -1,26 +1,19 @@
-local wk = require("which-key")
-
-local leader = " "
-
-local nmap = function(mapping)
-    wk.register(mapping, { mode = "n", prefix = leader })
+local nmap = function(key, cmd, desc)
+	require("which-key").register({ [key] = { cmd, desc }}, { mode = "n" })
 end
 
-local vmap = function(mapping)
-    wk.register(mapping, { mode = "v", prefix = leader })
+local imap = function(key, cmd, desc)
+	require("which-key").register({ [key] = { cmd, desc }}, { mode = "i" })
 end
 
-local imap = function(mapping)
-    wk.register(mapping, { mode = "i", prefix = leader })
+local vmap = function(key, cmd, desc)
+	require("which-key").register({ [key] = { cmd, desc }}, { mode = "v" })
 end
 
-wk.register({
-{["<f10>"] = { ":Telescope projects<cr>", "Open projects." }},
-    {["<f3>"] = { ":Telescope find_files<cr>", "Show files." }},
-})
+nmap(" f", ":lua vim.lsp.buf.format({ async = true})<cr>", "Format current file")
+nmap("<f3>", ":Telescope find_files<cr>", "Show files")
+nmap("<f4>", ":Neogit<cr>", "Show Neogit.")
 
-nmap({
-    {["<s-s>"] = { ":w<cr>", "Save." }},
-    {["<s-s>q"] = { ":wq<cr>", "Save and quit." }},
-    {["<s-q>q"] = { ":q!<cr>", "Discard and quit." }},
-})
+nmap("<c- >", ":Lspsaga hover_doc<cr>", "Show hover docs.")
+imap("<c- >", ":Lspsaga hover_doc<cr>", "Show hover docs.")
+vmap("<c-a>", ":sort<cr>", "Sorts current selection.")

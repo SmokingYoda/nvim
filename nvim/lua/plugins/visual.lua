@@ -1,0 +1,7 @@
+require("fidget").setup()
+require("colorizer").setup()
+require("noice").setup()
+require("ibl").setup()
+require("lualine").setup()
+require("bufferline").setup()
+require("alpha").setup(require("alpha.themes.dashboard").config)
