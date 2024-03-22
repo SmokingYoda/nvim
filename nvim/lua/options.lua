@@ -1,7 +1,6 @@
 local settings = {
 	laststatus = 3,
 	showmode = false,
-	clipboard = "unnamedplus",
 	cursorline = true,
 	cursorlineopt = "number",
 	expandtab = true,
@@ -29,6 +28,7 @@ for n, v in ipairs(settings) do
 	vim.opt[n] = v
 end
 
+vim.opt.clipboard:append("unnamedplus")
 vim.opt.shortmess:append("sI")
 vim.opt.whichwrap:append("<>[]hl")
 vim.cmd("colorscheme github_dark_dimmed")
