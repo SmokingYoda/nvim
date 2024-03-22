@@ -22,6 +22,7 @@ local settings = {
 	undofile = true,
 	updatetime = 250,
 	termguicolors = true,
+	completeopt = "menu,menuone,noselect",
 }
 
 for n, v in ipairs(settings) do
