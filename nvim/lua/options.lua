@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 local settings = {
 	laststatus = 3,
 	showmode = false,
@@ -23,6 +25,8 @@ local settings = {
 	updatetime = 250,
 	termguicolors = true,
 	completeopt = "menu,menuone,noselect",
+	spell = true,
+	spelllang = "en_us"
 }
 
 for n, v in ipairs(settings) do

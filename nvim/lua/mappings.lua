@@ -1,28 +1,50 @@
 local wk = require("which-key")
 
+local test = function()
+	for buf in pairs(vim.api.nvim_list_bufs()) do
+		print(buf)
+	end
+end
+
 wk.register({
-	["<f1>"] = {},
-	["<f2>"] = {},
-	["<f3>"] = {},
-	["<f4>"] = {},
-	["<f5>"] = {},
-	["<f6>"] = {},
-	["<f7>"] = {},
-	["<f8>"] = {},
-	["<f9>"] = {},
-	["<f10>"] = {},
-	["<f11>"] = {},
-	["<f12>"] = {},
+	["<c-v>"] = { test(), "" },
+	["<c-c>"] = { "<c-w>q", "Close window." },
+	["<c-"] = {
+		name = "Control motions.",
+		["s>"] = {
+			name = "Show motions.",
+			["f"] = { ":Telescope find_files<cr>", "Show files." },
+			["g"] = { ":Neogit<cr>", "Show neogit." },
+			["t"] = { ":TroubleToggle<cr>", "Show Trouble." },
+			["c"] = { ":Telescope git_bcommits<cr>", "Show file commits." },
+			["e"] = { ":Neotree toggle<cr>", "Show file explorer." },
+		},
+		["l>"] = {
+			name = "Line motions.",
+			["j"] = { ":m+1<cr>==", "Move line down." },
+			["k"] = { ":m-2<cr>==", "Move line up." },
+		},
+	},
+	["<leader>"] = {
+
+		["f"] = {
+			{ ":lua vim.lsp.buf.format({ async = true })<cr>", "Format file." },
+		},
+		["s"] = {
+			["t"] = { ":w<cr>", "Save." },
+			["q"] = {
+				["t"] = { ":wq<cr>", "Save and quit." },
+				["a"] = { ":wqa<cr>", "Save and quit all." },
+			},
+			["a"] = { ":wa<cr>", "Save all." },
+		},
+		["o"] = {
+			name = "Order motions.",
+			["b"] = { "viB:sort<cr>", "Sort block." },
+		},
+	},
 })
 
 wk.register({
-	["<f3>"] = { ":Telescope find_files<cr>", "Show files." },
-	["<f4>"] = { ":Neogit<cr>", "Show Neogit." },
-	["<c-s>g"] = { ":Telescope git_bcommits<cr>", "Show file's commits." },
-	["<c-s>f"] = { ":Neotree toggle<cr>", "Show Neogit." },
-	[" f"] = { ":lua vim.lsp.buf.format({ async = true })<cr>", "Format current file." },
-	["<c- >"] = { ":Lspsaga hover_doc<cr>", "Show hover" },
-	["gd"] = { ":Lspsaga goto_definition<cr>", "Goto definition." },
-	["<c-s>t"] = { ":TroubleToggle<cr>", "Toggle trouble." },
-	["<f5>"] = { ":split | terminal cargo run<cr>", "Run cargo." },
-})
+	["<c-s>"] = { ":sort<cr>", "Sort selected lines." },
+}, { mode = "v" })
