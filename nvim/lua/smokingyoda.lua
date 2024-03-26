@@ -1,4 +1,4 @@
-require("plugins.load")
+require("plugins.load").setup()
 require("plugins.qol")
 require("plugins.visual.bufferline")
 require("plugins.visual.lualine")

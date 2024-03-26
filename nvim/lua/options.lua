@@ -6,6 +6,7 @@ local settings = {
 	cursorlineopt = "number",
 	expandtab = true,
 	fillchars = { eob = " " },
+	foldmethod = "indent",
 	ignorecase = true,
 	laststatus = 3,
 	mouse = "a",
@@ -27,6 +28,8 @@ local settings = {
 	timeoutlen = 400,
 	undofile = true,
 	updatetime = 250,
+	foldlevel = 99,
+	nofoldenable = true,
 }
 
 for n, v in ipairs(settings) do
