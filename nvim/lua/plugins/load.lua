@@ -57,6 +57,7 @@ M.setup = function()
 	mod("williamboman/mason-lspconfig.nvim")
 	mod("windwp/nvim-autopairs")
 	mod("windwp/nvim-ts-autotag")
+	mod("catppuccin/nvim")
 
 	mod("nvim-treesitter/nvim-treesitter", {
 		["do"] = function()

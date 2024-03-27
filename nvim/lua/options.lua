@@ -40,4 +40,4 @@ vim.opt.sessionoptions:append("blank,buffers,curdir,folds,help,tabpages,winsize,
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.shortmess:append("sI")
 vim.opt.whichwrap:append("<>[]hl")
-vim.cmd("colorscheme github_dark_dimmed")
+vim.cmd("colorscheme catppuccin-mocha")

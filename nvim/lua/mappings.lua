@@ -39,12 +39,13 @@ nmap("<c-s>", ":w<cr>", "Save the file.")
 nmap("<c-b>", "viB", "Select current block.")
 nmap("<c-f>", ":Telescop live_grep<cr>", "Live grep.")
 nmap("<c-q>", ":q<cr>", "Quit.")
+nmap("<c-s-q>", ":qa<cr>", "Quit all.")
 
 -- ALT + <key>
 nmap("<a-k>", ":m+1<cr>==", "Move the current line up.")
 nmap("<a-j>", ":m-2<cr>==", "Move the current line down.")
 nmap("<a-h>", "v0d", "Delete from cursor to the beginning of the line.")
-nmap("<a-l>", "v$D", "Delete from cursor to the end of the line.")
+nmap("<a-l>", "v$d", "Delete from cursor to the end of the line.")
 
 -- WIN + <key>
 nmap("<d-e>", ":Neotree toggle<cr>", "Toggles the neotree.")
@@ -67,3 +68,4 @@ imap("<c-s>", "<esc>:w<cr>", "Save the file.")
 imap("<c-f>", "<esc>:lua require('fzf-lua').grep_cword()<cr>", "Search word under cursor.")
 imap("<c-c>", "<esc>Vc", "Copy the current line.")
 imap("<c-v>", "<esc>pi", "Paste the copied line.")
+imap("<a-s>", "<esc>:wqa<cr>", "Save all and quit.")

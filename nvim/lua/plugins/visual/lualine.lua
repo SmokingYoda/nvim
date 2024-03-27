@@ -42,15 +42,22 @@ require("lualine").setup({
 	theme = "github_dark",
 	globalstatus = true,
 	disabled_filetypes = {
-		statusline = {}, -- only ignores the ft for statusline.
+		statusline = {},
 		winbar = {},
 	},
 	sections = {
 		lualine_a = {
 			"mode",
-			{ "b:gitsigns_head", icon = "" },
 			{
-				fname,
+				"b:gitsigns_head",
+				icon = "",
+			},
+			{
+				"fileformat",
+			},
+
+			{
+				"filename",
 			},
 		},
 		lualine_b = {
@@ -63,8 +70,12 @@ require("lualine").setup({
 		},
 		lualine_c = {},
 		lualine_x = {},
-		lualine_y = { { "diff", source = diff_source } },
-		lualine_z = { "location" },
+		lualine_y = {
+			{ "diff", source = diff_source },
+		},
+		lualine_z = {
+			"location",
+		},
 	},
 	inactive_sections = {
 		lualine_a = {},
